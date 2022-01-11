@@ -57,7 +57,7 @@ function BFS()
                     }
                 catch{
                     console.log("noneighbor");
-                    dict[qstring] = [];
+                    dict[dqstring] = [];
                     dict[dqstring].push(neighbor);
                 }
                 allpassed.push(neighbor);
