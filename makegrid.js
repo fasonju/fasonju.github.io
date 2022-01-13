@@ -3,10 +3,10 @@ let startexists = false;
 let endexists = false;
 let mousedown = false;
 
-for(let i = 0; i < 15; i++)
+for(let i = 0; i < 20; i++)
 {
     var row = document.createElement('div');
-    for(let j = 0; j < 40; j++)
+    for(let j = 0; j < 60; j++)
     {
         var node = document.createElement('div');
         node.id = index.toString();
@@ -78,9 +78,9 @@ function Reset()
 {
     let ctr1 = 0;
     var grid = document.getElementById(grid)
-    for(let i = 0; i < 15; i++)
+    for(let i = 0; i < 20; i++)
     {
-        for(let k = 0; k < 40; k++)
+        for(let k = 0; k < 60; k++)
         {
             var docunode = document.getElementById(ctr1.toString());
             docunode.toggleAttribute("iswall", false)

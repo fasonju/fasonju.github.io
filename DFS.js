@@ -79,19 +79,19 @@ function DFS()
 function directions(dq,walls,keys)
 {
     var result = [];
-    if(dq > 39)
+    if(dq > 59)
     {
-        result.push(dq - 40);
+        result.push(dq - 60);
     }
-    if(dq < 560)
-    {
-        result.push(dq + 40);
-    }   
-    if((dq + 1) % 40 != 0)
+    if((dq + 1) % 60 != 0)
     {
         result.push(dq + 1);
     }
-    if((dq) % 40 != 0)
+    if(dq < 1140)
+    {
+        result.push(dq + 60);
+    }   
+    if((dq) % 60 != 0)
     {
         result.push(dq - 1);
     }
@@ -122,7 +122,7 @@ async function visualizeallpassed(bool)
     let i = 0;
     while(true)
     {
-        await sleep(33);
+        await sleep(15);
         document.getElementById(BFSallpassed[i].toString()).classList.add("visited");
         if(i == BFSallpassed.length - 1)
         {
@@ -150,7 +150,7 @@ async function visualizebacktrack()
     let i = 0;
     while(true)
     {
-        await sleep(33);
+        await sleep(20);
         document.getElementById(BFSbacktrack[i].toString()).classList.add("backtrack");
            
         
