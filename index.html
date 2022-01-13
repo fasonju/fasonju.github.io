@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="Index.css">
+        <link rel="stylesheet" href="indexstyle.css">
+        <title>Pathfinding visualizer</title>
+    </head>
+    <body onmouseup="mouseup()">
+        <header>    
+            <div class = "topnav">
+                <a href="index.html">
+                    <img src="logo.png" id="logo" alt="Logo"/>  
+                </a>
+                <div class="wrap">
+                    <a href="tutorial.html">
+                        <button type="button" class="button">Tutorial</button>
+                    </a>
+                    <button onclick ="BFS()"class="buttonshort">BFS</button>
+                    <button type="button" onclick ="DFS()"class="buttonshort">DFS</button>
+                    <button type="button" onclick ="Reset()" class="buttonshort">reset</button>
+                </div>
+                <h1 id="toptext">Pathfinding visualizer</h1>
+            </div>
+        </header>
+        <main>
+            <div id="grid"></div>
+            <table>
+                <caption><h2>legend</h2></caption>  
+                    <tr>
+                        <td>
+                            <div class="node" style="background-color: green;" id="legendstart"></div>
+                        </td>
+                        <td>
+                            <h4>startnode</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="node" style="background-color: red;" id="legendend"></div>
+                        </td>
+                        <td>
+                            <h4>endnode</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="node" style="background-color: pink;"></div>
+                        </td>
+                        <td>
+                            <h4>wall</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="node" style="background-color: rgba(0,190,218,0.75);"></div>
+                        </td>
+                        <td>
+                            <h4>passed node</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="node" style="background-color: rgba(178,67,255,0.75);"></div>
+                        </td>
+                        <td>
+                            <h4>found path</h4>
+                        </td>
+                    </tr>
+            </table>
+                <div></div>
+            </div>
+        </main>
+ <footer>
+
+ </footer>
+ <script src="makegrid.js"></script>
+ <script src="BFS.js"></script>
+ <script src="DFS.js"></script>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <script>
+    window.sessionStorage
+    function mouseup(){mousedown = false;}
+    if(sessionStorage.getItem("shown") != 'true')
+    {
+        sessionStorage.setItem("shown", 'true')
+        swal("Do you want to read the tutorial?",{
+        buttons:{
+            read: "read it",
+            cancel:"have fun"
+        }
+        }).then((value) => {
+            if(value === "read")
+            {
+                window.location.href="tutorial.html"
+            }
+        })
+    }
+    
+ </script>
+    </body>
+</html>
