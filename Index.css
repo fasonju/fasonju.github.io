@@ -40,8 +40,6 @@ div.node{
 }
 #grid{
     position:fixed;
-    top:25%;
-    left: 20%;
     background-color:grey;  
 }
 div[iswall]{
