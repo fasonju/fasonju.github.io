@@ -11,6 +11,10 @@ div.node{
         width:25px;
         height:25px;
     }
+    #grid{
+        top:20%;
+        left:20%;
+    }
 }
 
 @media only screen and (max-width:1536px){
@@ -18,12 +22,20 @@ div.node{
         width:20px;
         height:20px;
     }
+    #grid{
+        top:25%;
+        left:20%;
+    }
 }
 
 @media only screen and (max-width: 828px){
     div.node{
         width:5px;
         height: 5px;
+    }
+    #grid{
+        top:25%;
+        left:20%;
     }
 }
 #grid{
