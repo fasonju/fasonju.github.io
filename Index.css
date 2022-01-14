@@ -7,20 +7,20 @@ div.node{
 }
 #grid{
     position:fixed;
-    top:50%;    
-    left:50%;
-    margin-top: -200px;
-    margin-left: -500px;
-    background-color:grey;
+    top:25%;
+    left: 10%;
+    background-color:grey;  
 }
 div[iswall]{
-    background-color: brown;
+    background-color: orange;
 }
 div[isstart]{
     background-color: green;
+    border-radius: 50px;
 }
 div[isend]{
     background-color:red;
+    border-radius: 50px;
 }
 .visited{
     

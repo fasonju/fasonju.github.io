@@ -23,12 +23,22 @@
             </div>
         </header>
         <main>
+            <p id="pp"></p>
             <div id="grid"></div>
             <table>
                 <caption><h2>legend</h2></caption>  
                     <tr>
                         <td>
-                            <div class="node" style="background-color: green;" id="legendstart"></div>
+                            <script>
+                                function startset()
+                                {
+                                    sets = true;
+                                    sete = false;
+                                    
+                                    document.getElementById("pp").innerHTML="rightclick for startnode"
+                                }
+                             </script>
+                            <div class="node" style="background-color: green;" id="legendstart" onclick="startset()"></div>
                         </td>
                         <td>
                             <h4>startnode</h4>
@@ -36,7 +46,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="node" style="background-color: red;" id="legendend"></div>
+                            <script>
+                                function endset()
+                                {
+                                    sete = true;
+                                    sets = false;
+                                    document.getElementById("pp").innerHTML="rightclick for endnode"
+                                }
+                             </script>
+                            <div class="node" style="background-color: red;" id="legendend" onclick="endset()"></div>
                         </td>
                         <td>
                             <h4>endnode</h4>
@@ -44,7 +62,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="node" style="background-color: pink;"></div>
+                            <div class="node" style="background-color: orange;"></div>
                         </td>
                         <td>
                             <h4>wall</h4>
@@ -95,7 +113,6 @@
             }
         })
     }
-    
  </script>
     </body>
 </html>

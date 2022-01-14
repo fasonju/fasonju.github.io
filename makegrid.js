@@ -2,7 +2,9 @@ let index = 0;
 let startexists = false;
 let endexists = false;
 let mousedown = false;
-
+let sets = false;
+let sete = false;
+let speed = 30;
 for(let i = 0; i < 20; i++)
 {
     var row = document.createElement('div');
@@ -14,7 +16,8 @@ for(let i = 0; i < 20; i++)
         node.className = "node";
         node.addEventListener("mousedown",iswall);
         node.addEventListener("mouseenter", function(){if(mousedown){this.toggleAttribute("iswall")}});
-        node.addEventListener("dblclick",dbl);
+        node.addEventListener("contextmenu",dbl);
+        node.addEventListener("contextmenu", e => e.preventDefault());
         row.appendChild(node);
     }
     grid.appendChild(row);
@@ -27,51 +30,46 @@ function iswall()
 
 function dbl()
 {
-    if(!startexists && !endexists)
-    {
-        this.toggleAttribute("isstart");
-        startexists = true;
-    }
-    else if(startexists && !endexists)
-    {
-        if(this.hasAttribute("isstart"))
+        if(sets)
         {
-            this.toggleAttribute("isstart")
-            startexists = false;
-        }
-        else
-        {
-            this.toggleAttribute("isend")
-            endexists = true;
-        }
-    }
-    else if(!startexists && endexists)
-    {
-        if(this.hasAttribute("isend"))
-        {
-            this.toggleAttribute("isend");
-            endexists = false;
-        }
-        else{
-            this.toggleAttribute("isstart")
+            removestartorend(true);
+            this.toggleAttribute("isstart");
+            this.toggleAttribute("isend", false);
             startexists = true;
+            sets = false;
+            document.getElementById("pp").innerHTML=""
         }
-        
-    }
-    else if(startexists && endexists)
-    {
-        if(this.hasAttribute("isstart"))
+        else if(sete)
         {
-            this.toggleAttribute("isstart")
-            startexists = false;
-        }
-        else if(this.hasAttribute("isend"))
-        {
+            removestartorend(false);
             this.toggleAttribute("isend");
-            endexists = false;
+            this.toggleAttribute("isstart", false);
+            endexists = true;
+            sete = false;
+            document.getElementById("pp").innerHTML=""
+        }
+    this.removeAttribute("iswall");
+}
+
+function removestartorend(bool)
+{
+    let ctr1 = 0;
+    var grid = document.getElementById(grid)
+    for(let i = 0; i < 20; i++)
+    {
+        for(let k = 0; k < 60; k++)
+        {
+            var docunode = document.getElementById(ctr1.toString());
+            if(bool)
+            {
+                docunode.toggleAttribute("isstart",false)
+            }
+            else{
+                docunode.toggleAttribute("isend",false)
+            }
+            ctr1++;
         }
     }
-    this.removeAttribute("iswall");
 }
 
 function Reset()
