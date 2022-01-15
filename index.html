@@ -4,6 +4,47 @@
         <link rel="stylesheet" href="Index.css">
         <link rel="stylesheet" href="indexstyle.css">
         <title>Pathfinding visualizer</title>
+        <meta name="viewport" cont="width=device-width, initial-scale=1">
+        <style>
+            .slidecontainer {
+              width: 160px;
+              height: 40px;
+              position:absolute;
+              left: 88%;
+              top: 5%;
+            }
+            
+            .slider {
+              -webkit-appearance: none;
+              width: 160px;
+              height: 25px;
+              background: #d3d3d3;
+              outline: none;
+              opacity: 0.7;
+              -webkit-transition: .2s;
+              transition: opacity .2s;
+            }
+            
+            .slider:hover {
+              opacity: 1;
+            }
+            
+            .slider::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 25px;
+              height: 25px;
+              background: #04AA6D;
+              cursor: pointer;
+            }
+            
+            .slider::-moz-range-thumb {
+              width: 25px;
+              height: 25px;
+              background: #04AA6D;
+              cursor: pointer;
+            }
+        </style>
     </head>
     <body onmouseup="mouseup()">
         <header>    
@@ -18,6 +59,13 @@
                     <button onclick ="BFS()"class="buttonshort">BFS</button>
                     <button type="button" onclick ="DFS()"class="buttonshort">DFS</button>
                     <button type="button" onclick ="Reset()" class="buttonshort">reset</button>
+                    <button type="button" onclick ="generatestair()">generate stair</button>
+                    <button type="button" onclick ="generaterandom()">generate random</button>
+                </div>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="80" class="slider" id="myRange"/>
+                    <br/>
+                    <p>interval: <span id="value"></span></p>
                 </div>
                 <h1 id="toptext">Pathfinding visualizer</h1>
             </div>
@@ -88,31 +136,42 @@
                 <div></div>
             </div>
         </main>
- <footer>
+        <footer>
 
- </footer>
- <script src="makegrid.js"></script>
- <script src="BFS.js"></script>
- <script src="DFS.js"></script>
- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- <script>
-    window.sessionStorage
-    function mouseup(){mousedown = false;}
-    if(sessionStorage.getItem("shown") != 'true')
-    {
-        sessionStorage.setItem("shown", 'true')
-        swal("Do you want to read the tutorial?",{
-        buttons:{
-            read: "read it",
-            cancel:"have fun"
-        }
-        }).then((value) => {
-            if(value === "read")
+        </footer>
+        <script src="makegrid.js"></script>
+        <script src="BFS.js"></script>
+        <script src="DFS.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            window.sessionStorage
+            function mouseup(){mousedown = false;}
+            if(sessionStorage.getItem("shown") != 'true')
             {
-                window.location.href="tutorial.html"
+                sessionStorage.setItem("shown", 'true')
+                swal("Do you want to read the tutorial?",{
+                buttons:{
+                    read: "read it",
+                    cancel:"have fun"
+                }
+                }).then((value) => {
+                    if(value === "read")
+                    {
+                        window.location.href="tutorial.html"
+                    }
+                })
             }
-        })
-    }
- </script>
+        </script>
+        <script>
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("value");
+            output.innerHTML = slider.value;
+            
+            slider.oninput = function() {
+                speed = this.value;
+                output.innerHTML = speed;
+            }
+        </script>
+        <script src="maze.js"></script>
     </body>
 </html>

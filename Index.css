@@ -1,16 +1,38 @@
 
 div.node{
     width: 20px;
-    height: 20px;
+    height:20px;
     display:inline-block;
     outline: solid 1px black;
 }
+
 #grid{
-    position:fixed;
-    top:25%;
-    left: 10%;
+    position:absolute;
     background-color:grey;  
 }
+
+@media only screen and (min-width: 1920px){
+    div.node{
+        width:25px;
+        height:25px;
+    }
+    #grid{
+        top:10%;
+        left:20%;
+    }
+}
+
+@media only screen and (width:1536px){
+    div.node{
+        width:20px;
+        height:20px;
+    }
+    #grid{
+        top:20%;
+        left:20%;
+    }
+}
+
 div[iswall]{
     background-color: orange;
 }

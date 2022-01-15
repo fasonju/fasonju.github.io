@@ -3,6 +3,7 @@ var BFSbacktrack;
 
 function DFS()
 {
+    removetrack();
     var dict = {};
     const get = getmatrix();
     let start = get[0];
@@ -20,7 +21,6 @@ function DFS()
         keys = Object.keys(dict);
         for(const neighbor of neighbors)
         {
-            
             dqstring = dq.toString();
             if(neighbor == end)
             {
@@ -56,8 +56,6 @@ function DFS()
         {
             break;
         }
-        
-        
     }
     BFSallpassed = allpassed;
     if(foundanswer == true)
@@ -70,10 +68,6 @@ function DFS()
         visualizeallpassed(false);
         
     }
-        
-    
-    
-
 }
 
 function directions(dq,walls,keys)
@@ -87,7 +81,7 @@ function directions(dq,walls,keys)
     {
         result.push(dq + 1);
     }
-    if(dq < 1140)
+    if(dq < 1320)
     {
         result.push(dq + 60);
     }   
@@ -122,7 +116,7 @@ async function visualizeallpassed(bool)
     let i = 0;
     while(true)
     {
-        await sleep(15);
+        await sleep(speed);
         document.getElementById(BFSallpassed[i].toString()).classList.add("visited");
         if(i == BFSallpassed.length - 1)
         {
@@ -141,8 +135,7 @@ async function visualizeallpassed(bool)
             icon: "error",
             buttons:{sadge: "sadge"}
         });
-    }
-    
+    }   
 }
 
 async function visualizebacktrack()
@@ -152,8 +145,6 @@ async function visualizebacktrack()
     {
         await sleep(20);
         document.getElementById(BFSbacktrack[i].toString()).classList.add("backtrack");
-           
-        
         if(i == BFSbacktrack.length - 1)
         {
             break;
@@ -167,8 +158,6 @@ function sleep(time)
     return new Promise(resolve => setTimeout(() => resolve(), time))
 }
 
-
-
 Object.prototype.getKeyByValue = function( value ) {
     for( var prop in this ) {
         if( this.hasOwnProperty( prop ) ) {
@@ -178,4 +167,3 @@ Object.prototype.getKeyByValue = function( value ) {
     }
 }
 
-  

@@ -6,7 +6,7 @@ function getmatrix()
     var start;
     var end;
     var counter = 0;
-    for(let k = 0; k < 20; k++)
+    for(let k = 0; k < 23; k++)
     {
         for(let j = 0; j < 60; j++)
         {
@@ -28,8 +28,10 @@ function getmatrix()
     }
     return [start,end,walls];
 }
+
 function BFS()
 {
+    removetrack();
     var dict = {};
     const get = getmatrix();
     let start = get[0];
@@ -46,8 +48,7 @@ function BFS()
         const neighbors = BFSdirections(dq,walls,keys);
         keys = Object.keys(dict);
         for(const neighbor of neighbors)
-        {
-            
+        { 
             dqstring = dq.toString();
             if(neighbor == end)
             {
@@ -83,8 +84,6 @@ function BFS()
         {
             break;
         }
-        
-        
     }
     BFSallpassed = allpassed;
     if(foundanswer == true)
@@ -97,10 +96,6 @@ function BFS()
         visualizeallpassed(false);
         
     }
-        
-    
-    
-
 }
 
 function BFSdirections(dq,walls,keys)
@@ -114,7 +109,7 @@ function BFSdirections(dq,walls,keys)
     {
         result.push(dq + 1);
     }
-    if(dq < 1140)
+    if(dq < 1320)
     {
         result.push(dq + 60);
     }   
@@ -149,7 +144,7 @@ async function visualizeallpassed(bool)
     let i = 0;
     while(true)
     {
-        await sleep(15);
+        await sleep(speed);
         document.getElementById(BFSallpassed[i].toString()).classList.add("visited");
         if(i == BFSallpassed.length - 1)
         {
@@ -193,8 +188,6 @@ function sleep(time)
 {
     return new Promise(resolve => setTimeout(() => resolve(), time))
 }
-
-
 
 Object.prototype.getKeyByValue = function( value ) {
     for( var prop in this ) {

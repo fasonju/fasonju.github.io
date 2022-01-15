@@ -1,11 +1,10 @@
 let index = 0;
-let startexists = false;
-let endexists = false;
 let mousedown = false;
 let sets = false;
 let sete = false;
-let speed = 30;
-for(let i = 0; i < 20; i++)
+let speed = 41;
+let disabled = false;
+for(let i = 0; i < 23; i++)
 {
     var row = document.createElement('div');
     for(let j = 0; j < 60; j++)
@@ -33,9 +32,8 @@ function dbl()
         if(sets)
         {
             removestartorend(true);
-            this.toggleAttribute("isstart");
+            this.toggleAttribute("isstart", true);
             this.toggleAttribute("isend", false);
-            startexists = true;
             sets = false;
             document.getElementById("pp").innerHTML=""
         }
@@ -44,7 +42,6 @@ function dbl()
             removestartorend(false);
             this.toggleAttribute("isend");
             this.toggleAttribute("isstart", false);
-            endexists = true;
             sete = false;
             document.getElementById("pp").innerHTML=""
         }
@@ -55,7 +52,7 @@ function removestartorend(bool)
 {
     let ctr1 = 0;
     var grid = document.getElementById(grid)
-    for(let i = 0; i < 20; i++)
+    for(let i = 0; i < 23; i++)
     {
         for(let k = 0; k < 60; k++)
         {
@@ -76,7 +73,7 @@ function Reset()
 {
     let ctr1 = 0;
     var grid = document.getElementById(grid)
-    for(let i = 0; i < 20; i++)
+    for(let i = 0; i < 23; i++)
     {
         for(let k = 0; k < 60; k++)
         {
@@ -90,6 +87,41 @@ function Reset()
             endexists = false;
             docunode.toggleAttribute("isend", false)
 
+            ctr1++;
+        }
+    }
+}
+
+function resetnotstart()
+{
+    let ctr1 = 0;
+    var grid = document.getElementById(grid)
+    for(let i = 0; i < 23; i++)
+    {
+        for(let k = 0; k < 60; k++)
+        {
+            var docunode = document.getElementById(ctr1.toString());
+            docunode.toggleAttribute("iswall", false)
+            docunode.toggleAttribute("visited", false)
+            docunode.classList.remove("visited");
+            docunode.classList.remove("backtrack");
+            ctr1++;
+        }
+    }
+}
+
+function removetrack()
+{
+    let ctr1 = 0;
+    var grid = document.getElementById(grid)
+    for(let i = 0; i < 23; i++)
+    {
+        for(let k = 0; k < 60; k++)
+        {
+            var docunode = document.getElementById(ctr1.toString());
+            docunode.toggleAttribute("visited", false)
+            docunode.classList.remove("visited");
+            docunode.classList.remove("backtrack");
             ctr1++;
         }
     }
