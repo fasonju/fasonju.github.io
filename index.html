@@ -121,7 +121,7 @@
                                     sets = true;
                                     sete = false;
                                     
-                                    document.getElementById("pp").innerHTML="rightclick for startnode"
+                                    document.getElementById("pp").innerHTML="click for startnode"
                                 }
                              </script>
                             <div class="node" style="background-color: green;" id="legendstart" onclick="startset()"></div>
@@ -137,7 +137,7 @@
                                 {
                                     sete = true;
                                     sets = false;
-                                    document.getElementById("pp").innerHTML="rightclick for endnode"
+                                    document.getElementById("pp").innerHTML="click for endnode"
                                 }
                              </script>
                             <div class="node" style="background-color: red;" id="legendend" onclick="endset()"></div>
@@ -191,7 +191,7 @@
             swal("Do you want to read the tutorial?",{
             buttons:{
                 read: "read it",
-                cancel:"have fun"
+                cancel:"please read it"
             }
             }).then((value) => {
                 if(value === "read")
