@@ -4,11 +4,21 @@ div.node{
     height:20px;
     display:inline-block;
     outline: solid 1px black;
+    margin:0;
+    padding:0;
 }
 
 #grid{
     position:absolute;
-    background-color:grey;  
+    top:20%;
+    left:20%;
+    margin:0;
+    padding:0;
+}
+
+.row{
+    margin:0;
+    padding:0;
 }
 
 @media only screen and (min-width: 1920px){
@@ -16,20 +26,12 @@ div.node{
         width:25px;
         height:25px;
     }
-    #grid{
-        top:10%;
-        left:20%;
-    }
 }
 
 @media only screen and (width:1536px){
     div.node{
         width:20px;
         height:20px;
-    }
-    #grid{
-        top:20%;
-        left:20%;
     }
 }
 

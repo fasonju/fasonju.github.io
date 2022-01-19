@@ -172,7 +172,7 @@ async function visualizebacktrack()
     let i = 0;
     while(true)
     {
-        await sleep(20);
+        await sleep(speed);
         document.getElementById(BFSbacktrack[i].toString()).classList.add("backtrack");
            
         

@@ -2,7 +2,7 @@ let index = 0;
 let mousedown = false;
 let sets = false;
 let sete = false;
-let speed = 41;
+let speed = 151;
 let disabled = false;
 for(let i = 0; i < 23; i++)
 {
@@ -21,6 +21,7 @@ for(let i = 0; i < 23; i++)
     }
     grid.appendChild(row);
 }
+
 function iswall()
 {
     this.toggleAttribute("iswall");
@@ -34,6 +35,8 @@ function dbl()
             removestartorend(true);
             this.toggleAttribute("isstart", true);
             this.toggleAttribute("isend", false);
+            startexists = true;
+            endexists = false;
             sets = false;
             document.getElementById("pp").innerHTML=""
         }

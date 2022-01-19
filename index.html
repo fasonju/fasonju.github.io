@@ -11,9 +11,9 @@
               height: 40px;
               position:absolute;
               left: 88%;
-              top: 5%;
+              top: 3%;
             }
-            
+
             .slider {
               -webkit-appearance: none;
               width: 160px;
@@ -34,7 +34,7 @@
               appearance: none;
               width: 25px;
               height: 25px;
-              background: #04AA6D;
+              background: rgb(236, 117, 137);
               cursor: pointer;
             }
             
@@ -56,14 +56,51 @@
                     <a href="tutorial.html">
                         <button type="button" class="button">Tutorial</button>
                     </a>
-                    <button onclick ="BFS()"class="buttonshort">BFS</button>
-                    <button type="button" onclick ="DFS()"class="buttonshort">DFS</button>
                     <button type="button" onclick ="Reset()" class="buttonshort">reset</button>
                     <button type="button" onclick ="generatestair()">generate stair</button>
                     <button type="button" onclick ="generaterandom()">generate random</button>
+                    <button type="button" onclick="removetrack()">remove track</button>
                 </div>
+                <select id="dropdown" onchange="getselectvalue()">
+                    <option value="null">select your algorithm</option>
+                    <option value="Breadthfirst">Breadth first</option>
+                    <option value="Depthfirst">Depth first</option>
+                    <option value="Bestfirst">Best first</option>
+                    <option value="A*">A*</option>
+                </select>
+                <script>
+                    function getselectvalue()
+                    {
+                        var selectedvalue = document.getElementById("dropdown").value;
+                        
+                        var button = document.getElementById("run");
+                        button.replaceWith(button.cloneNode(true));
+                        var button = document.getElementById("run");
+                        switch(selectedvalue)
+                        {
+                            case "Breadthfirst":
+                                button.innerText="Run Breadth first"
+                                button.addEventListener("click",BFS)
+                                break;
+                            case "Depthfirst":
+                                button.addEventListener("click",DFS)
+                                button.innerText="Run depth first"
+                                break;
+                            case "Bestfirst":
+                                button.addEventListener("click",BESTFS)
+                                button.innerText="Run best first"
+                                break;
+                            case "A*":
+                                button.addEventListener("click",Astar)
+                                button.innerText="Run A*"
+                                break;
+                            case "null":
+                                button.innerText ="Choose an algorithm"
+                        }
+                    }
+                </script>
                 <div class="slidecontainer">
-                    <input type="range" min="1" max="80" class="slider" id="myRange"/>
+                    <input type="range" min="1" max="300" class="slider" id="myRange"/>
                     <br/>
                     <p>interval: <span id="value"></span></p>
                 </div>
@@ -73,7 +110,8 @@
         <main>
             <p id="pp"></p>
             <div id="grid"></div>
-            <table>
+            <button id="run">Choose your algorithm</button>
+            <table id="tab">
                 <caption><h2>legend</h2></caption>  
                     <tr>
                         <td>
@@ -139,39 +177,41 @@
         <footer>
 
         </footer>
-        <script src="makegrid.js"></script>
-        <script src="BFS.js"></script>
-        <script src="DFS.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            window.sessionStorage
-            function mouseup(){mousedown = false;}
-            if(sessionStorage.getItem("shown") != 'true')
-            {
-                sessionStorage.setItem("shown", 'true')
-                swal("Do you want to read the tutorial?",{
-                buttons:{
-                    read: "read it",
-                    cancel:"have fun"
-                }
-                }).then((value) => {
-                    if(value === "read")
-                    {
-                        window.location.href="tutorial.html"
-                    }
-                })
-            }
-        </script>
-        <script>
-            var slider = document.getElementById("myRange");
-            var output = document.getElementById("value");
-            output.innerHTML = slider.value;
-            
-            slider.oninput = function() {
-                speed = this.value;
-                output.innerHTML = speed;
-            }
-        </script>
-        <script src="maze.js"></script>
     </body>
+    <script src="makegrid.js"></script>
+    <script src="BFS.js"></script>
+    <script src="DFS.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        window.sessionStorage
+        function mouseup(){mousedown = false;}
+        if(sessionStorage.getItem("shown") != 'true')
+        {
+            sessionStorage.setItem("shown", 'true')
+            swal("Do you want to read the tutorial?",{
+            buttons:{
+                read: "read it",
+                cancel:"have fun"
+            }
+            }).then((value) => {
+                if(value === "read")
+                {
+                    window.location.href="tutorial.html"
+                }
+            })
+        }
+    </script>
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("value");
+        output.innerHTML = slider.value;
+        
+        slider.oninput = function() {
+            speed = this.value;
+            output.innerHTML = speed;
+        }
+    </script>
+    <script src="maze.js"></script>
+    <script src="Astar.js"></script>
+    <script src="BESTFS.js"></script>
 </html>
