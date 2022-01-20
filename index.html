@@ -54,63 +54,44 @@
                 </a>
                 <div class="wrap">
                     <a href="tutorial.html">
-                        <button type="button" class="button">Tutorial</button>
+                        <button type="button" class="buttonpink" class="button">Tutorial</button>
                     </a>
-                    <button type="button" onclick ="Reset()" class="buttonshort">reset</button>
-                    <button type="button" onclick ="generatestair()">generate stair</button>
-                    <button type="button" onclick ="generaterandom()">generate random</button>
-                    <button type="button" onclick="removetrack()">remove track</button>
+                    <button type="button" class="buttonpink" onclick ="Reset()" class="buttonshort">reset</button>
+                    <button type="button" class="buttonpink" onclick="removetrack()">remove track</button>
                 </div>
-                <select id="dropdown" onchange="getselectvalue()">
-                    <option value="null">select your algorithm</option>
-                    <option value="Breadthfirst">Breadth first</option>
-                    <option value="Depthfirst">Depth first</option>
-                    <option value="Bestfirst">Best first</option>
-                    <option value="A*">A*</option>
-                </select>
-                <script>
-                    function getselectvalue()
-                    {
-                        var selectedvalue = document.getElementById("dropdown").value;
-                        
-                        var button = document.getElementById("run");
-                        button.replaceWith(button.cloneNode(true));
-                        var button = document.getElementById("run");
-                        switch(selectedvalue)
-                        {
-                            case "Breadthfirst":
-                                button.innerText="Run Breadth first"
-                                button.addEventListener("click",BFS)
-                                break;
-                            case "Depthfirst":
-                                button.addEventListener("click",DFS)
-                                button.innerText="Run depth first"
-                                break;
-                            case "Bestfirst":
-                                button.addEventListener("click",BESTFS)
-                                button.innerText="Run best first"
-                                break;
-                            case "A*":
-                                button.addEventListener("click",Astar)
-                                button.innerText="Run A*"
-                                break;
-                            case "null":
-                                button.innerText ="Choose an algorithm"
-                        }
-                    }
-                </script>
                 <div class="slidecontainer">
                     <input type="range" min="1" max="300" class="slider" id="myRange"/>
                     <br/>
                     <p>interval: <span id="value"></span></p>
                 </div>
                 <h1 id="toptext">Pathfinding visualizer</h1>
+                <div id="dropdown" class="dropdown" data-dropdown>
+                    <button class="link" data-dropdown-button>dropdown</button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="func" onclick="generaterandom()">Random</a>
+                        <br/>
+                        <a href="#" class = "func" onclick="randomprim()">prim</a>
+                        <br/>
+                        <a href="#" class="func" onclick="generatestair()">stair</a>
+                    </div>
+                    <span class="arrow2"></span>
+                </div>
             </div>
         </header>
         <main>
             <p id="pp"></p>
             <div id="grid"></div>
-            <button id="run">Choose your algorithm</button>
+            <div class="select-c">
+                <select id="dropdown2" onchange="getselectvalue()">
+                    <option value="null">select your algorithm</option>
+                    <option value="Breadthfirst">Breadth first</option>
+                    <option value="Depthfirst">Depth first</option>
+                    <option value="Bestfirst">Best first</option>
+                    <option value="A*">A*</option>
+                </select>
+                <span class="arrow"></span>
+            </div>
+            <button class="buttonpink" id="run">Choose your algorithm</button>
             <table id="tab">
                 <caption><h2>legend</h2></caption>  
                     <tr>
@@ -118,7 +99,7 @@
                             <script>
                                 function startset()
                                 {
-                                    sets = true;
+                                    sets = true;    
                                     sete = false;
                                     
                                     document.getElementById("pp").innerHTML="click for startnode"
@@ -214,4 +195,49 @@
     <script src="maze.js"></script>
     <script src="Astar.js"></script>
     <script src="BESTFS.js"></script>
+    <script>
+        function getselectvalue()
+        {
+            var selectedvalue = document.getElementById("dropdown2").value;
+            
+            var button = document.getElementById("run");
+            button.replaceWith(button.cloneNode(true));
+            var button = document.getElementById("run");
+            switch(selectedvalue)
+            {
+                case "Breadthfirst":
+                    button.innerText="Run Breadth first"
+                    button.addEventListener("click",BFS)
+                    break;
+                case "Depthfirst":
+                    button.addEventListener("click",DFS)
+                    button.innerText="Run depth first"
+                    break;
+                case "Bestfirst":
+                    button.addEventListener("click",BESTFS)
+                    button.innerText="Run best first"
+                    break;
+                case "A*":
+                    button.addEventListener("click",Astar)
+                    button.innerText="Run A*"
+                    break;
+                case "null":
+                    button.innerText ="Choose an algorithm"
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener("mousedown",e => {
+            const isdropdownbutton = e.target.matches("[data-dropdown-button]")
+            let currentdropdown = document.getElementById("dropdown");
+            if(isdropdownbutton){
+                currentdropdown.classList.toggle("active")
+                
+            }
+            else if(!e.target.classList.contains("func"))
+            {
+                currentdropdown.classList.toggle("active",false)
+            }
+        })
+    </script>
 </html>

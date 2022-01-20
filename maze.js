@@ -1,5 +1,6 @@
 function generatestair()
 {   
+    document.getElementById("dropdown").classList.remove("active")
     resetnotstart();
     let startpos = 1320;
     while((startpos + 1) % 60 != 0)
@@ -20,25 +21,30 @@ function generatestair()
 
 function generaterandom()
 {
+    document.getElementById("dropdown").classList.remove("active")
     resetnotstart();
     let ctr1 = 0;
     for(let i = 0; i < 23; i++)
     {
         for(let j = 0; j < 60; j++)
         {
-            if(Math.floor(Math.random() * 100) > 80) 
+            if(Math.floor(Math.random() * 100) > 70) 
             {
-                document.getElementById(ctr1.toString()).toggleAttribute("iswall",true);
+                var doc =document.getElementById(ctr1.toString())
+                if(!doc.hasAttribute("isstart") && !doc.hasAttribute("isend"))
+                {
+                    doc.toggleAttribute("iswall",true)
+                }
+                
             }
             ctr1++;
         }
     }
-    //maze();
-    checkifpossible()
+    checkifpossible(true)
     
 }
 
-function checkifpossible()
+function checkifpossible(bool)
 {
     var dict = {};
     const get = getmatrix();
@@ -96,116 +102,230 @@ function checkifpossible()
     BFSallpassed = allpassed;
     if(foundanswer != true)
     {
-        generaterandom();
+        if(bool)
+        {
+            generaterandom();
+        }
+        else{
+            randomprim();
+        }
     }
 
 }
-/*let id = 0;
-function maze()
+
+function getmat()
 {
+    var matrix = [];
     resetnotstart();
-    createmaze = [];
-    dict = {};
+    Q = []
     for(let i = 0; i < 23; i++)
     {
-        row = []
+        var row =[]
         for(let j = 0; j < 60; j++)
         {
-            row.push('.');
+            row.push([]);
         }
-        createmaze.push(row);
+        matrix.push(row);
     }
-    const tracker = [];
-    const holder = [];
-    holder.push(createmaze);
-    holder.push(tracker)
-    holder.push([]);
-    list = [];
-    recursivedivisionhorizontal(holder,list);
-
-    merge(list);
+    return matrix;
 }
-
-function recursivedivisionhorizontal(holder)
+function recursivedivisionmaze()
 {
-    gridvar = holder[0];
-    if(gridvar.length <= 4 || gridvar[0].length <= 4)
+    const matrix = getmat()
+    var id = []
+    id.push(0);
+    Q.push([matrix,id,[]]);
+    const container = [];
+    let num = 0;
+    while(Q.count > 0)
     {
-        return holder;
-    }
-    let randint = Math.floor(Math.random() * gridvar.length)
-    for(let i = 0; i < gridvar[randint].length; i++)
-    {
-        gridvar[randint][i] ='W'
-    }
-    var grid1 = gridvar.slice(0,randint + 1)
-    var grid2 = gridvar.slice(-(gridvar.length - randint - 1))
-    console.log(grid1);
-    console.log(grid2);
-    var tracker = holder[1];
-    const tracker1 = tracker.slice();
-    const tracker2 = tracker.slice(); 
-    tracker1.push("upper")
-    tracker2.push("lower")
-    id++;
-    holder1 = []
-    holder2 = []
-    holder1.push(grid1)
-    holder1.push(tracker1)
-    holder1.push(holder[2].slice())
-    holder2.push(grid2)
-    holder2.push(tracker2)
-    holder2.push(holder[2].slice())
-    holder1[2].push(id)
-    holder2[2].push(id)
-    const newgrid = recursivevertical(holder1);
-    const newgrid2 = recursivevertical(holder2);
-    list.push(newgrid)
-    list.push(newgrid2)
-}
-
-function recursivevertical(holder)
-{
-    var gridvar = holder[0];
-    if(gridvar.length <= 4 || gridvar[0].length <= 4)
-    {
-        return holder;
-    }
-    grid1 = [];
-    grid2 = [];
-    holder3 = [];
-    holder4 = [];
-    let randint = Math.floor(Math.random() * gridvar[0].length)
-    for(let i = 0; i < gridvar.length; i++)
-    {
-        for(let j = 0; j < gridvar[0].length; j++)
+        const dqarr = Q.shift();
+        var dq = dqarr[0];
+        let id = dqarr[1];
+        var past = dqarr[2];
+        const LR = dividehorizontal(dq);
+        num++;
+        id.push(num);
+        if(LR[0].length > 4 && LR[0][0].length > 4)
         {
-            gridvar[i][randint] = 'W'
-        }
-        grid1.push(gridvar[i].slice(0,randint + 1));
-        grid2.push(gridvar[i].slice(-(gridvar[i].length - randint - 1)));
-    }
-    console.log(grid1);
-    console.log(grid2);
-    var tracker = holder[1]
-    const tracker1 = tracker.slice();
-    const tracker2 = tracker.slice(); 
-    tracker1.push("left")
-    tracker2.push("right")
-    id++;
-    holder3.push(grid1)
-    holder3.push(tracker1)
-    holder3.push(holder[2].slice())
-    holder4.push(grid2)
-    holder4.push(tracker2)
-    holder4.push(holder[2].slice())
-    holder3[2].push(id)
-    holder4[2].push(id)
-    recursivedivisionhorizontal(holder3)
-    recursivedivisionhorizontal(holder4)
-}
-function merge(list)
-{
+            var pasttop = past.slice().push("top");
+            Q.push([LR[0],id, pasttop])
 
+        }
+        else{
+            container.push([LR[0],id,past])
+        }
+        if(LR[1].length > 4 && LR[1][0].length > 4)
+        {
+            var pastbot = past.slice().push("bot");
+            Q.push([Lr[1],id, pastbot])
+        }
+        else{
+            container.push([LR[1],id,pastbot])
+        }
+    }
 }
-*/
+
+function dividehorizontal(dq)
+{
+    let random = randomIntFromInterval(2, dq.length - 2);
+    let hole = randomIntFromInterval(0, dq[0].length - 1);
+    for(let i = 0; i < dq[0].length; i++)
+    {
+        if(i != hole)
+        {
+            dq[random][i]= 'W'
+        }
+        else{
+            dq[random][i] ='.'
+        }
+    }
+    const top = dq.slice(0,random)
+    const bot = dq.slice(random,dq.length)
+    return [top,bot]
+    
+}
+
+function randomIntFromInterval(min, max) 
+{
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function randomprim()
+{
+    resetnotstart();
+    document.getElementById("dropdown").classList.remove("active")
+    const matrix = [];
+    const indexes = []
+    for(let i = 0; i < 23; i++)
+    {
+        const row =[]
+        for(let j = 0; j < 60; j++)
+        {
+            if(j != 0 && j != 59)
+            {
+                row.push(".")
+            }
+            else{
+                row.push("W")
+            }
+        }
+        matrix.push(row);
+    }
+    for( let j = 0; j < 60; j++)
+    {
+        matrix[0][j] = "W";
+        matrix[22][j] = "W";
+    }
+    let begin = randomIntFromInterval(60,1319);
+    while(begin + 1 % 60 == 0 && begin % 60 == 0)
+    {
+        begin = randomIntFromInterval(60,1319);
+    }
+    let num = 59;
+    let yval =0;
+    for(let i = 1; i <= 23; i++ )
+    {
+        if(begin <= num)
+        {
+            break;
+        }
+        num += 60;
+        yval++;
+    }
+    let xval = begin - yval*60;
+    const beginarr =[yval,xval]
+    indexes.push(beginarr)
+    const animatearr = [];
+    while(indexes.length > 0)
+    {
+        var index = indexes.pop();
+        if(matrix[index[0]][index[1]] == ".")
+        {
+            let count = 0;
+            if(matrix[index[0]][index[1] + 1] == "P"){
+                count++;
+            }
+            if(matrix[index[0]][index[1] - 1] =="P"){
+                count++
+            }
+            if(matrix[index[0] + 1][index[1]] == "P"){
+                count++;
+            }
+            if(matrix[index[0] - 1][index[1]] == "P"){
+                count++;
+            }
+            if(count < 2){
+                matrix[index[0]][index[1]] = "P"
+                animatearr.push(index);
+                const directions = primdirections(index,matrix)
+                for(var direction of directions)
+                {
+                indexes.push(direction)
+                }
+            }
+        }
+        shuffleArray(indexes);
+    }
+    console.log(indexes.length)
+    console.log(matrix);
+    animatemazegen(animatearr)
+    alltowalls();
+}
+
+async function animatemazegen(animatearr)
+{
+    for(var p of animatearr)
+    {
+        await sleep(speed);
+        let index = p[0]*60 + p[1];
+        document.getElementById(index.toString()).toggleAttribute("iswall",false)
+    }
+}
+
+function alltowalls()
+{
+    let counter = 0;
+    for(let i = 0; i< 23; i++)
+    {
+        for(let j = 0; j < 60; j++)
+        {
+            if(!document.getElementById(counter.toString()).hasAttribute("isend") && !document.getElementById(counter.toString()).hasAttribute("isstart"))
+            {
+                document.getElementById(counter.toString()).toggleAttribute("iswall",true);
+            }
+            counter++
+        }
+    }
+}
+
+function primdirections(index,matrix)
+{
+    const result = [];
+    if(index[0] > 1 && matrix[index[0] - 1][index[1]] == "." && matrix[index[0] - 2][index[1]] != "P" && matrix[index[0] - 1][index[1] + 1] != "P" && matrix[index[0] - 1][index[1] - 1] != "P") 
+    {
+        result.push([index[0] - 1,index[1]])
+    }
+    if(index[0] < 22 && matrix[index[0] + 1][index[1]] == "." && matrix[index[0] + 2][index[1]] != "P" && matrix[index[0] + 1][index[1] + 1] != "P" && matrix[index[0] + 1][index[1] - 1] != "P")
+    {
+        result.push([index[0] + 1,index[1]])
+    }
+    if(index[1] < 59 && matrix[index[0]][index[1] + 1] == "." && matrix[index[0]][index[1] + 2] != "P" && matrix[index[0] + 1][index[1] + 1] != "P" && matrix[index[0] - 1][index[1] + 1] != "P")
+    {
+        result.push([index[0],index[1] + 1])
+    }
+    if(index[1] > 1 && matrix[index[0]][index[1] - 1] == "." && matrix[index[0]][index[1] - 2] != "P" && matrix[index[0] + 1][index[1] - 1] != "P" && matrix[index[0] -1][index[1] - 1] != "P")
+    {
+        result.push([index[0],index[1] - 1])
+    }
+    return result;
+}
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}

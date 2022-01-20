@@ -16,6 +16,9 @@ for(let i = 0; i < 23; i++)
         node.addEventListener("mousedown",iswall);
         node.addEventListener("mouseenter", function(){if(mousedown){this.toggleAttribute("iswall")}});
         node.addEventListener("click",dbl);
+        node.addEventListener("contextmenu", function(e){
+            e.preventDefault();
+        }, false);
         row.appendChild(node);
     }
     grid.appendChild(row);

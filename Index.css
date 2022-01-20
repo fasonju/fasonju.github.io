@@ -16,10 +16,6 @@ div.node{
     padding:0;
 }
 
-.row{
-    margin:0;
-    padding:0;
-}
 
 @media only screen and (min-width: 1920px){
     div.node{
@@ -36,8 +32,35 @@ div.node{
 }
 
 div[iswall]{
-    background-color: orange;
+    animation: wall;
+    animation-duration: .3s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
 }
+
+@keyframes wall{
+    0%{
+        background-color: orange;
+        
+        transform: scale(.5);
+    }   
+    50%{
+        background-color: orange;
+        transform: scale(.8);
+    }
+    70%{
+        transform: scale(1.2)
+    }
+    100%{
+        transfrom: scale(1);
+        background-color: orange ;
+    }
+}
+
 div[isstart]{
     background-color: green;
     border-radius: 50px;
