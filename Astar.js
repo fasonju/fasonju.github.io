@@ -10,7 +10,7 @@ function Astar()
     const allpassed = [];
     BFSallpassed = []
     startarr = [start,0]
-    let finaldepth;     
+    let foundanswer = false;   
     S.push(startarr);
     while(S.length > 0)
     {
@@ -23,7 +23,7 @@ function Astar()
         depth++;
         if(ds == end)
         {   
-            finaldepth = depth;
+            foundanswer = true;
             break;
         }
         var keys = Object.keys(dict);
@@ -43,8 +43,11 @@ function Astar()
         }
         S = Sortbydistance(S,end,depth);
     }
-    backtrackAstar(dict,end,start);
-    visualizeallpassed(true)
+    if(foundanswer)
+    {
+        backtrackAstar(dict,end,start);
+    }
+    visualizeallpassed(foundanswer)
 }
 
 function getdistance(id,end,depth)

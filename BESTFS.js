@@ -10,6 +10,7 @@ function BESTFS()
     const allpassed = [];
     BFSallpassed = [] 
     S.push(start);
+    let foundanswer = false;
     while(S.length > 0)
     {
         let ds = S.pop();
@@ -17,6 +18,7 @@ function BESTFS()
         BFSallpassed.push(ds)
         if(ds == end)
         {   
+            foundanswer = true;
             break;
         }
         var keys = Object.keys(dict);
@@ -36,8 +38,11 @@ function BESTFS()
         }
         S = Sortbydistancenew(S,end);
     }
+    if(foundanswer){
+        backtrack(dict,end,start);
+    }
     backtrack(dict,end,start);
-    visualizeallpassed(true)
+    visualizeallpassed(foundanswer)
 }
 
 function getdistancenew(id,end)

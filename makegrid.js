@@ -2,7 +2,7 @@ let index = 0;
 let mousedown = false;
 let sets = false;
 let sete = false;
-let speed = 151;
+let speed = 100;
 let disabled = false;
 for(let i = 0; i < 23; i++)
 {
