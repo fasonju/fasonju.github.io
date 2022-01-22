@@ -5,6 +5,7 @@ function Astar()
     let start = get[0];
     let end = get[1];
     const walls = get[2]
+    const weights = get[3]
     S = []; 
     const dict ={};
     const allpassed = [];
@@ -49,6 +50,7 @@ function Astar()
     }
     visualizeallpassed(foundanswer)
 }
+
 
 function getdistance(id,end,depth)
 {
@@ -96,6 +98,8 @@ function Sortbydistance(S,end)
     for(var value of S)
     {
         let x = getdistance(value[0],end,value[1])
+        if(document.getElementById(value[0].toString()).hasAttribute("isweight"))
+        {x+=weight;}
         temp.push(x)
         if(Object.keys(dict).includes(x.toString()) == false)
         {

@@ -91,6 +91,8 @@ function Sortbydistancenew(S,end)
     for(var value of S)
     {
         let x = getdistancenew(value,end)
+        if(document.getElementById(value.toString()).hasAttribute("isweight"))
+        {x+=weight;}
         temp.push(x)
         if(Object.keys(dict).includes(x.toString()) == false)
         {

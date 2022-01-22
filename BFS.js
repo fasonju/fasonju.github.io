@@ -3,6 +3,7 @@ var BFSbacktrack;
 function getmatrix()
 {
     const walls = [];
+    const weights = [];
     var start;
     var end;
     var counter = 0;
@@ -23,14 +24,19 @@ function getmatrix()
             {
                 walls.push(counter);
             }
+            else if(node.hasAttribute("isweight"))
+            {
+                weights.push(counter);
+            }
             counter++;
         }
     }
-    return [start,end,walls];
+    return [start,end,walls,weights];
 }
 
 function BFS()
 {
+    globaldeletedweights = [];
     removetrack();
     var dict = {};
     const get = getmatrix();
@@ -145,7 +151,13 @@ async function visualizeallpassed(bool)
     while(true)
     {
         await sleep(speed);
-        document.getElementById(BFSallpassed[i].toString()).classList.add("visited");
+        var curr = document.getElementById(BFSallpassed[i].toString())
+        if(curr.hasAttribute("isweight"))
+        {
+            curr.toggleAttribute("isweight",false);
+            globaldeletedweights.push(BFSallpassed[i]);
+        }
+        curr.classList.add("visited");
         if(i == BFSallpassed.length - 1)
         {
             break;

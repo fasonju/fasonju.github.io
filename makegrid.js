@@ -3,7 +3,10 @@ let mousedown = false;
 let sets = false;
 let sete = false;
 let speed = 100;
-let disabled = false;
+var weight = 25;
+let disabledweight = false;
+let tablewall= true;
+let tableweight = false;
 for(let i = 0; i < 23; i++)
 {
     var row = document.createElement('div');
@@ -14,7 +17,23 @@ for(let i = 0; i < 23; i++)
         index++;
         node.className = "node";
         node.addEventListener("mousedown",iswall);
-        node.addEventListener("mouseenter", function(){if(mousedown){this.toggleAttribute("iswall")}});
+        node.addEventListener("mouseenter", function(){
+            if(mousedown)
+            {
+                if(tablewall)
+                {
+                    if(!this.hasAttribute("isend") && !this.hasAttribute("isstart"))
+                    {
+                        this.toggleAttribute("iswall");
+                        this.toggleAttribute("isweight",false);
+                    }
+                }
+                else if(!this.hasAttribute("isend") && !this.hasAttribute("isstart")){
+                    this.toggleAttribute("isweight")
+                    this.toggleAttribute("iswall",false)
+                }
+            }
+        });
         node.addEventListener("click",dbl);
         node.addEventListener("contextmenu", function(e){
             e.preventDefault();
@@ -26,7 +45,19 @@ for(let i = 0; i < 23; i++)
 
 function iswall()
 {
-    this.toggleAttribute("iswall");
+    if(tablewall)
+    {
+        if(!this.hasAttribute("isend") && !this.hasAttribute("isstart"))
+        {
+            this.toggleAttribute("iswall");
+            this.toggleAttribute("isweight",false);
+        }
+    }
+    else if(!this.hasAttribute("isend") && !this.hasAttribute("isstart"))
+    {
+        this.toggleAttribute("isweight");
+        this.toggleAttribute("iswall",false);
+    }
     mousedown = true;
 }
 
@@ -41,6 +72,8 @@ function dbl()
             endexists = false;
             sets = false;
             document.getElementById("pp").innerHTML=""
+            this.removeAttribute("iswall");
+            this.removeAttribute("isweight");
         }
         else if(sete)
         {
@@ -49,8 +82,9 @@ function dbl()
             this.toggleAttribute("isstart", false);
             sete = false;
             document.getElementById("pp").innerHTML=""
+            this.removeAttribute("iswall");
+            this.removeAttribute("isweight");
         }
-    this.removeAttribute("iswall");
 }
 
 function removestartorend(bool)
@@ -88,8 +122,8 @@ function Reset()
             docunode.classList.remove("visited");
             docunode.classList.remove("backtrack");
             docunode.toggleAttribute("isstart", false)
-            startexists = false;
-            endexists = false;
+            globaldeletedweights = [];
+            docunode.toggleAttribute("isweight",false)
             docunode.toggleAttribute("isend", false)
 
             ctr1++;
@@ -110,11 +144,13 @@ function resetnotstart()
             docunode.toggleAttribute("visited", false)
             docunode.classList.remove("visited");
             docunode.classList.remove("backtrack");
+            globaldeletedweights = [];
+            docunode.toggleAttribute("isweight",false)
             ctr1++;
         }
     }
 }
-
+globaldeletedweights =[];
 function removetrack()
 {
     let ctr1 = 0;
@@ -127,7 +163,21 @@ function removetrack()
             docunode.toggleAttribute("visited", false)
             docunode.classList.remove("visited");
             docunode.classList.remove("backtrack");
+            if(globaldeletedweights.includes(ctr1))
+            {
+                docunode.toggleAttribute("isweight",true)
+            }
             ctr1++;
         }
     }
+    globaldeletedweights = [];
+}
+
+function removeweights()
+{
+    for(let i = 0; i< 1380; i++)
+    {
+        document.getElementById(i.toString()).toggleAttribute("isweight",false);
+    }
+    globaldeletedweights =[];
 }

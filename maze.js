@@ -1,3 +1,4 @@
+
 function generatestair()
 {   
     document.getElementById("dropdown").classList.remove("active")
@@ -28,7 +29,7 @@ function generaterandom()
     {
         for(let j = 0; j < 60; j++)
         {
-            if(Math.floor(Math.random() * 100) > 70) 
+            if(Math.floor(Math.random() * 100) > 60) 
             {
                 var doc =document.getElementById(ctr1.toString())
                 if(!doc.hasAttribute("isstart") && !doc.hasAttribute("isend"))
@@ -41,6 +42,37 @@ function generaterandom()
         }
     }
     checkifpossible(true)
+    
+}
+
+function generaterandomweight()
+{
+    var selectedvalue = document.getElementById("dropdown2").value;
+    if(selectedvalue != "Breadthfirst" && selectedvalue != "Depthfirst")
+    {
+        document.getElementById("dropdown").classList.remove("active")
+        resetnotstart();
+        let ctr1 = 0;
+        for(let i = 0; i < 23; i++)
+        {
+            for(let j = 0; j < 60; j++)
+            {
+                if(Math.floor(Math.random() * 100) > 60) 
+                {
+                    var doc =document.getElementById(ctr1.toString())
+                    if(!doc.hasAttribute("isstart") && !doc.hasAttribute("isend"))
+                    {
+                        doc.toggleAttribute("isweight",true)
+                    }
+                    
+                }
+                ctr1++;
+            }
+        }
+    }
+    else{
+        swal("this algorithm is unweighted");
+    }
     
 }
 

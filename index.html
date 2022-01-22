@@ -6,12 +6,23 @@
         <title>Pathfinding visualizer</title>
         <meta name="viewport" cont="width=device-width, initial-scale=1">
         <style>
-            .slidecontainer {
+            .slidecontainer{
               width: 160px;
               height: 40px;
               position:absolute;
-              left: 88%;
               top: 3%;
+            }
+            .slidecontainer.weight{
+                left:70%;
+                opacity: 0;
+                pointer-events: none;
+            }
+            .slidecontainer.weight.visible{
+                opacity:1;
+                pointer-events: auto;
+            }
+            .slidecontainer.speed {
+              left: 88%;
             }
 
             .slider {
@@ -59,16 +70,23 @@
                     <button type="button" class="buttonpink" onclick ="Reset()" class="buttonshort">reset</button>
                     <button type="button" class="buttonpink" onclick="removetrack()">remove track</button>
                 </div>
-                <div class="slidecontainer">
+                <div id="weightslider" class="slidecontainer weight visible">
+                    <input type="range" min="1" max="49" class="slider" id="myWeightrange"/>
+                    <br/>
+                    <p>weight: <span id="weightvalue"></span></p>
+                </div>
+                <div class="slidecontainer speed">
                     <input type="range" min="1" max="199" class="slider" id="myRange"/>
                     <br/>
                     <p>interval: <span id="value"></span></p>
                 </div>
                 <h1 id="toptext">Pathfinding visualizer</h1>
                 <div id="dropdown" class="dropdown" data-dropdown>
-                    <button class="link" data-dropdown-button>dropdown</button>
+                    <button class="link" data-dropdown-button>generate</button>
                     <div class="dropdown-menu">
-                        <a  class="func" onclick="generaterandom()">Random basic maze</a>
+                        <a  class="func" onclick="generaterandom()">random basic maze</a>
+                        <br/>
+                        <a class="func" onclick="generaterandomweight()">random weight maze</a>
                         <br/>
                         <a class = "func" onclick="randomprim()">prim's algorithm</a>
                         <br/>
@@ -129,10 +147,18 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="node" style="background-color: orange;"></div>
+                            <div class="node" id="legendwall" style="background-color: orange;" onclick ="dragwall()"></div>
                         </td>
                         <td>
                             <h4>wall</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="node" id="legendweight" style="background-color: purple" onclick = "dragweight()"></div>
+                        </td>
+                        <td>
+                            <h4>weight</h4>
                         </td>
                     </tr>
                     <tr>
@@ -183,13 +209,21 @@
         }
     </script>
     <script>
-        var slider = document.getElementById("myRange");
-        var output = document.getElementById("value");
-        output.innerHTML = slider.value;
+        var speedslider = document.getElementById("myRange");
+        var speedoutput = document.getElementById("value");
+        speedoutput.innerHTML = speedslider.value;
         
-        slider.oninput = function() {
-            speed = this.value;
-            output.innerHTML = speed;
+        speedslider.oninput = function() {
+            speed = parseInt(this.value);
+            speedoutput.innerHTML = speed;
+        }
+        var weightslider = document.getElementById("myWeightrange");
+        var weightoutput = document.getElementById("weightvalue");
+        weightoutput.innerHTML = weightslider.value;
+        
+        weightslider.oninput = function() {
+            weight = parseInt(this.value);
+            weightoutput.innerHTML = weight;
         }
     </script>
     <script src="maze.js"></script>
@@ -207,19 +241,31 @@
             {
                 case "Breadthfirst":
                     button.innerText="Run Breadth first"
+                    document.getElementById("weightslider").classList.remove("visible");
+                    disabledweight = true;
+                    removeweights();
+                    dragwall();
                     button.addEventListener("click",BFS)
                     break;
                 case "Depthfirst":
                     button.addEventListener("click",DFS)
+                    disabledweight = true;
+                    document.getElementById("weightslider").classList.remove("visible");
+                    dragwall();
+                    removeweights();
                     button.innerText="Run depth first"
                     break;
                 case "Bestfirst":
                     button.addEventListener("click",BESTFS)
+                    disabledweight = false;
                     button.innerText="Run best first"
+                    document.getElementById("weightslider").classList.add("visible");
                     break;
                 case "A*":
                     button.addEventListener("click",Astar)
+                    disabledweight = false;
                     button.innerText="Run A*"
+                    document.getElementById("weightslider").classList.add("visible");
                     break;
                 case "null":
                     button.innerText ="Choose an algorithm"
@@ -239,5 +285,27 @@
                 currentdropdown.classList.toggle("active",false)
             }
         })
+    </script>
+    <script>
+        function dragwall()
+        {
+            tablewall =true;
+            tableweight = false;
+        }
+        function dragweight()
+        {
+            if(!disabledweight)
+            {
+                tablewall = false;
+                tableweight = true;
+            }
+        }
+        function removeweights()
+        {
+            for(let i = 0; i< 1380; i++)
+            {
+                document.getElementById(i.toString()).toggleAttribute("isweight",false);
+            }
+        }
     </script>
 </html>

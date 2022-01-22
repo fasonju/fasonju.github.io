@@ -79,7 +79,6 @@ select{
 
 table{
     border-collapse: separate;
-    border-spacing: 15px;
 }
 
 #tab{
@@ -100,6 +99,14 @@ table{
 
 #legendend:hover{
     cursor: pointer;
+}
+
+#legendweight{
+    cursor: pointer;
+}
+
+#legendwall:hover{
+    cursor:pointer;
 }
 
 #bigswal{
@@ -137,7 +144,7 @@ body{
     display: flex;;
     justify-content: center;
     position: absolute;
-    left:60%;
+    left:40%;
 }
 .buttonpink{
     margin-right: 20px;
@@ -174,7 +181,7 @@ body{
 .dropdown{
     position: relative;
     display: inline-block;
-    left:30%;
+    left:25%;
     top:40%;
     justify-content: center;
     font-size: large;
@@ -214,6 +221,7 @@ body{
     opacity: 1;
     background-color: lightcoral;
     pointer-events: auto;
+    z-index: 999;
 }
 
 .arrow2{
