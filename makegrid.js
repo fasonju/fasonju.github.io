@@ -175,9 +175,6 @@ function removetrack()
 
 function removeweights()
 {
-    if(disabled){
-        return;
-    }
     for(let i = 0; i< 1380; i++)
     {
         document.getElementById(i.toString()).toggleAttribute("isweight",false);
@@ -187,9 +184,6 @@ function removeweights()
 
 function removewalls()
 {
-    if(disabled){
-        return;
-    }
     for(let i = 0; i< 1380; i++)
     {
         document.getElementById(i.toString()).toggleAttribute("iswall",false);
