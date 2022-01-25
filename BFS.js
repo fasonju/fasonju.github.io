@@ -147,6 +147,13 @@ function backtrack(dict,end,start)
 
 async function visualizeallpassed(bool)
 {
+    disabled = true;
+    var dropdown = document.getElementById("dropdown2");
+    dropdown.toggleAttribute("disabled")
+    var butts = document.querySelectorAll("button")
+    for(var button of butts){
+        button.toggleAttribute("disabled");
+    }
     let i = 0;
     while(true)
     {
@@ -167,6 +174,9 @@ async function visualizeallpassed(bool)
     if(bool == true)
     {
         visualizebacktrack();
+        dropdown.toggleAttribute("disabled")
+    for(var button of butts){
+        button.toggleAttribute("disabled");}
     }
     else
     {
@@ -175,6 +185,9 @@ async function visualizeallpassed(bool)
             icon: "error",
             buttons:{sadge: "sadge"}
         });
+        disabled = false;
+    for(var button of butts){
+        button.toggleAttribute("disabled");}
     }
     
 }
@@ -194,6 +207,8 @@ async function visualizebacktrack()
         }
         i++;
     }
+    disabled = false;
+    dropdown.toggleAttribute("disabled");
 }
 
 function sleep(time)

@@ -73,10 +73,6 @@ select{
     left: 1%;
 }
 
-#legendstart:hover{
-    cursor: pointer;
-}
-
 table{
     border-collapse: separate;
 }
@@ -98,16 +94,23 @@ table{
     border-radius: 50px;
 }
 
-#legendend:hover{
+#legendstart:hover{
     cursor: pointer;
+    transform: scale(1.2)
 }
 
-#legendweight{
+#legendend:hover{
     cursor: pointer;
+    transform: scale(1.2)
+}
+
+#legendweight:hover{
+    transform: scale(1.2)
 }
 
 #legendwall:hover{
     cursor:pointer;
+    transform: scale(1.2)
 }
 
 #bigswal{
@@ -153,6 +156,12 @@ html{
     left:40%;
     top:5%;
 }
+
+@media only screen and(min-width: 1920px) {
+    .wrap{
+        top:40px;
+    }
+}
 .buttonpink{
     margin-right: 40px;
     text-align: center;
@@ -167,6 +176,11 @@ html{
     display: inline-block;
     cursor:pointer;
     transition: all 0.3s ease 0s;
+}
+
+.buttonpink[disabled]{
+    pointer-events: none;
+    opacity: .3;
 }
 
 .buttonpink:hover{

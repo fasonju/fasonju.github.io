@@ -7,6 +7,7 @@ var weight = 25;
 let disabledweight = false;
 let tablewall= true;
 let tableweight = false;
+var disabled = false;
 for(let i = 0; i < 23; i++)
 {
     var row = document.createElement('div');
@@ -45,6 +46,9 @@ for(let i = 0; i < 23; i++)
 
 function iswall()
 {
+    if(disabled){
+        return;
+    }
     if(tablewall)
     {
         if(!this.hasAttribute("isend") && !this.hasAttribute("isstart"))
@@ -63,6 +67,9 @@ function iswall()
 
 function dbl()
 {
+    if(disabled){
+        return;
+    }
         if(sets)
         {
             removestartorend(true);
@@ -89,6 +96,9 @@ function dbl()
 
 function removestartorend(bool)
 {
+    if(disabled){
+        return;
+    }
     let ctr1 = 0;
     var grid = document.getElementById(grid)
     for(let i = 0; i < 23; i++)
@@ -133,6 +143,9 @@ function Reset()
 
 function resetnotstart()
 {
+    if(disabled){
+        return;
+    }
     let ctr1 = 0;
     var grid = document.getElementById(grid)
     for(let i = 0; i < 23; i++)
@@ -153,6 +166,9 @@ function resetnotstart()
 globaldeletedweights =[];
 function removetrack()
 {
+    if(disabled){
+        return;
+    }
     let ctr1 = 0;
     var grid = document.getElementById(grid)
     for(let i = 0; i < 23; i++)
@@ -175,6 +191,9 @@ function removetrack()
 
 function removeweights()
 {
+    if(disabled){
+        return;
+    }
     for(let i = 0; i< 1380; i++)
     {
         document.getElementById(i.toString()).toggleAttribute("isweight",false);
@@ -184,6 +203,9 @@ function removeweights()
 
 function removewalls()
 {
+    if(disabled){
+        return;
+    }
     for(let i = 0; i< 1380; i++)
     {
         document.getElementById(i.toString()).toggleAttribute("iswall",false);

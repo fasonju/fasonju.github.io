@@ -41,7 +41,7 @@ function generaterandom()
             ctr1++;
         }
     }
-    checkifpossible(true)
+    checkifpossible()
     
 }
 
@@ -76,7 +76,7 @@ function generaterandomweight()
     
 }
 
-function checkifpossible(bool)
+function checkifpossible()
 {
     var dict = {};
     const get = getmatrix();
@@ -131,92 +131,13 @@ function checkifpossible(bool)
             break;
         }
     }
-    BFSallpassed = allpassed;
     if(foundanswer != true)
     {
-        if(bool)
-        {
-            generaterandom();
-        }
-        else{
-            randomprim();
-        }
+        generaterandom();
     }
 
 }
 
-function getmat()
-{
-    var matrix = [];
-    resetnotstart();
-    Q = []
-    for(let i = 0; i < 23; i++)
-    {
-        var row =[]
-        for(let j = 0; j < 60; j++)
-        {
-            row.push([]);
-        }
-        matrix.push(row);
-    }
-    return matrix;
-}
-function recursivedivisionmaze()
-{
-    const matrix = getmat()
-    var id = []
-    id.push(0);
-    Q.push([matrix,id,[]]);
-    const container = [];
-    let num = 0;
-    while(Q.count > 0)
-    {
-        const dqarr = Q.shift();
-        var dq = dqarr[0];
-        let id = dqarr[1];
-        var past = dqarr[2];
-        const LR = dividehorizontal(dq);
-        num++;
-        id.push(num);
-        if(LR[0].length > 4 && LR[0][0].length > 4)
-        {
-            var pasttop = past.slice().push("top");
-            Q.push([LR[0],id, pasttop])
-
-        }
-        else{
-            container.push([LR[0],id,past])
-        }
-        if(LR[1].length > 4 && LR[1][0].length > 4)
-        {
-            var pastbot = past.slice().push("bot");
-            Q.push([Lr[1],id, pastbot])
-        }
-        else{
-            container.push([LR[1],id,pastbot])
-        }
-    }
-}
-
-function dividehorizontal(dq)
-{
-    let random = randomIntFromInterval(2, dq.length - 2);
-    let hole = randomIntFromInterval(0, dq[0].length - 1);
-    for(let i = 0; i < dq[0].length; i++)
-    {
-        if(i != hole)
-        {
-            dq[random][i]= 'W'
-        }
-        else{
-            dq[random][i] ='.'
-        }
-    }
-    const top = dq.slice(0,random)
-    const bot = dq.slice(random,dq.length)
-    return [top,bot]
-    
-}
 
 function randomIntFromInterval(min, max) 
 {
@@ -307,12 +228,22 @@ function randomprim()
 
 async function animatemazegen(animatearr)
 {
-    for(var p of animatearr)
+    disabled = true;
+    var dropdown = document.getElementById("dropdown2");
+    dropdown.toggleAttribute("disabled")
+    var butts = document.querySelectorAll("button")
+    for(var button of butts){
+        button.toggleAttribute("disabled");}
+    for(var p of animatearr)    
     {
         await sleep(speed);
         let index = p[0]*60 + p[1];
         document.getElementById(index.toString()).toggleAttribute("iswall",false)
     }
+    disabled = false;
+    dropdown.toggleAttribute("disabled")
+    for(var button of butts){
+        button.toggleAttribute("disabled");}
 }
 
 function alltowalls()

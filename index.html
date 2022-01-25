@@ -13,8 +13,14 @@
               left:11%;
               top:70px;
               margin-bottom: 2%;
-
             }
+
+            @media only screen and(min-width: 1920px) {
+                .wrap{
+                    top:140px;
+                }
+            }
+
             .slidecontainer.weight{
                 opacity: 0;
                 pointer-events: none;
@@ -142,7 +148,7 @@
                             <div class="node" style="background-color: red;" id="legendend" onclick="endset()"></div>
                         </td>
                         <td>
-                            <h4>endnode</h4>
+                            <h4>end</h4>
                         </td>
                     </tr>
                     <tr>
@@ -166,7 +172,7 @@
                             <div class="node" style="background-color: rgba(0,190,218,0.75);"></div>
                         </td>
                         <td>
-                            <h4>passed node</h4>
+                            <h4>passed</h4>
                         </td>
                     </tr>
                     <tr>
@@ -174,7 +180,7 @@
                             <div class="node" style="background-color: rgba(178,67,255,0.75);"></div>
                         </td>
                         <td>
-                            <h4>found path</h4>
+                            <h4>found</h4>
                         </td>
                     </tr>
             </table>
@@ -298,13 +304,6 @@
             {
                 tablewall = false;
                 tableweight = true;
-            }
-        }
-        function removeweights()
-        {
-            for(let i = 0; i< 1380; i++)
-            {
-                document.getElementById(i.toString()).toggleAttribute("isweight",false);
             }
         }
     </script>
