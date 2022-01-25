@@ -174,9 +174,6 @@ async function visualizeallpassed(bool)
     if(bool == true)
     {
         visualizebacktrack();
-        dropdown.toggleAttribute("disabled")
-    for(var button of butts){
-        button.toggleAttribute("disabled");}
     }
     else
     {
@@ -207,8 +204,12 @@ async function visualizebacktrack()
         }
         i++;
     }
+    var dropdown = document.getElementById("dropdown2");
+    var butts = document.querySelectorAll("button")
     disabled = false;
     dropdown.toggleAttribute("disabled");
+    for(var button of butts){
+        button.toggleAttribute("disabled");}
 }
 
 function sleep(time)
