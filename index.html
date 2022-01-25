@@ -7,13 +7,15 @@
         <meta name="viewport" cont="width=device-width, initial-scale=1">
         <style>
             .slidecontainer{
-              width: 160px;
+              width: 10%;;
               height: 40px;
-              position:absolute;
-              top: 3%;
+              position:relative;
+              left:11%;
+              top:70px;
+              margin-bottom: 2%;
+
             }
             .slidecontainer.weight{
-                left:70%;
                 opacity: 0;
                 pointer-events: none;
             }
@@ -21,14 +23,10 @@
                 opacity:1;
                 pointer-events: auto;
             }
-            .slidecontainer.speed {
-              left: 88%;
-            }
 
             .slider {
+              position:absolute;
               -webkit-appearance: none;
-              width: 160px;
-              height: 25px;
               background: #d3d3d3;
               outline: none;
               opacity: 0.7;
@@ -69,16 +67,8 @@
                     </a>
                     <button type="button" class="buttonpink" onclick ="Reset()" class="buttonshort">reset</button>
                     <button type="button" class="buttonpink" onclick="removetrack()">remove track</button>
-                </div>
-                <div id="weightslider" class="slidecontainer weight visible">
-                    <input type="range" min="1" max="49" class="slider" id="myWeightrange"/>
-                    <br/>
-                    <p>weight: <span id="weightvalue"></span></p>
-                </div>
-                <div class="slidecontainer speed">
-                    <input type="range" min="1" max="199" class="slider" id="myRange"/>
-                    <br/>
-                    <p>interval: <span id="value"></span></p>
+                    <button type="button" class="buttonpink" onclick="removewalls()">remove walls</button>
+                    <button type="button" class="buttonpink" onclick="removeweights()">remove weights</button>
                 </div>
                 <h1 id="toptext">Pathfinding visualizer</h1>
                 <div id="dropdown" class="dropdown" data-dropdown>
@@ -110,6 +100,16 @@
                 <span class="arrow"></span>
             </div>
             <button class="buttonpink" id="run">Choose your algorithm</button>
+            <div class="slidecontainer speed">
+                <input type="range" min="1" max="199" class="slider" id="myRange"/>
+                <br/>
+                <p>interval: <span id="value"></span></p>
+            </div>
+            <div id="weightslider" class="slidecontainer weight visible">
+                <input type="range" min="1" max="49" class="slider" id="myWeightrange"/>
+                <br/>
+                <p>weight: <span id="weightvalue"></span></p>
+            </div>
             <table id="tab">
                 <caption><h2>legend</h2></caption>  
                     <tr>
